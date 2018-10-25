@@ -7,7 +7,6 @@
 @time:2018/10/25
 """
 
-
 import numpy
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
@@ -15,7 +14,7 @@ from sklearn.svm import SVC
 COMPONENT_NUM = 35
 
 print('Read training data...')
-with open('../input/train.csv', 'r') as reader:
+with open('../data/train.csv', 'r') as reader:
     reader.readline()
     train_label = []
     train_data = []
@@ -37,7 +36,7 @@ svc = SVC()
 svc.fit(train_data, train_label)
 
 print('Read testing data...')
-with open('../input/test.csv', 'r') as reader:
+with open('../data/test.csv', 'r') as reader:
     reader.readline()
     test_data = []
     for line in reader.readlines():
@@ -51,7 +50,7 @@ test_data = pca.transform(test_data)
 predict = svc.predict(test_data)
 
 print('Saving...')
-with open('predict.csv', 'w') as writer:
+with open('../out/digit_recognizer.csv', 'w') as writer:
     writer.write('"ImageId","Label"\n')
     count = 0
     for p in predict:
