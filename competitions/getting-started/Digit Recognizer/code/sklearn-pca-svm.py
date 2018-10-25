@@ -2,10 +2,9 @@
 #-*- coding:utf-8 -*-
 
 """
-11
-@authon:            ZQB
-@file:KNN.py
-@time:2017/11/03
+@authon: ZQB
+@file:sklearn-pca-svw.py
+@time:2018/10/25
 """
 
 
