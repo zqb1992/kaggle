@@ -13,6 +13,7 @@ from sklearn.svm import SVC
 
 COMPONENT_NUM = 35
 
+#load train data
 print('Read training data...')
 with open('../data/train.csv', 'r') as reader:
     reader.readline()
@@ -24,6 +25,7 @@ with open('../data/train.csv', 'r') as reader:
         train_data.append(data[1:])
 print('Loaded ' + str(len(train_label)))
 
+#pca processing
 print('Reduction...')
 train_label = numpy.array(train_label)
 train_data = numpy.array(train_data)
@@ -31,6 +33,7 @@ pca = PCA(n_components=COMPONENT_NUM, whiten=True)
 pca.fit(train_data)
 train_data = pca.transform(train_data)
 
+#svm
 print('Train SVM...')
 svc = SVC()
 svc.fit(train_data, train_label)
