@@ -3,7 +3,7 @@
 
 """
 @authon: ZQB
-@file:sklearn-pca-svw.py
+@file:sklearn-pca-svm.py
 @time:2018/10/25
 """
 
