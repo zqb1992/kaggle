@@ -35,6 +35,9 @@ print('Train SVM...')
 svc = SVC()
 svc.fit(train_data, train_label)
 
+
+
+
 print('Read testing data...')
 with open('../data/test.csv', 'r') as reader:
     reader.readline()
