@@ -49,7 +49,7 @@ print(dev_data.shape)
 
 #svm
 print('Train SVM...')
-svc = SVC(C=5, kernel='rbf')
+svc = SVC(C=4, kernel='rbf')
 svc.fit(train_data, train_label)
 
 
