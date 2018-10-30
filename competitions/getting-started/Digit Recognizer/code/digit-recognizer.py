@@ -30,66 +30,46 @@ def load_data():
     return train_data,train_label,test_data
 
 train_data,train_label,test_data = load_data()
-
 #pca processing
 print('PCA...')
 train_label = np.array(train_label)
 train_data = np.array(train_data)
 
+def pca_data_analyse(train_data):
+    #求每一列的均值
+    meanVal = np.mean(train_data,axis=0)
+    print(meanVal.shape)
+    #归一化
+    meanRemoved = train_data-meanVal;
+    print(meanRemoved.shape)
+    #求协方差矩阵
+    covData = np.cov(meanRemoved,rowvar=0)
+    #计算特征值和特征向量
+    eig_vals,eig_vecs = np.linalg.eig(covData)
+    #从大到小排序
+    eig_vals_id = np.argsort(-eig_vals)
 
-#求每一列的均值
-meanVal = np.mean(train_data,axis=0)
-print(meanVal.shape)
-#归一化
-meanRemoved = train_data-meanVal;
-print(meanRemoved.shape)
-#求协方差矩阵
-covData = np.cov(meanRemoved,rowvar=0)
-#计算特征值和特征向量
-eig_vals,eig_vecs = np.linalg.eig(covData)
-#从大到小排序
-eig_vals_id = np.argsort(-eig_vals)
+    print(eig_vals_id.shape)
+    print(eig_vals_id[1:10]);
 
-print(eig_vals_id.shape)
-print(eig_vals_id[1:10]);
+    #特征值对方差的影响
+    total = float(np.sum(eig_vals))   #总特征值和
+    var_exp = [float(eig_vals[eig_vals_id[i]])/total for i in range(0,len(eig_vals_id))]
+    cum_var_exp = np.cumsum(var_exp)
 
-#特征值对方差的影响
-total = float(np.sum(eig_vals))   #总特征值和
-var_exp = [float(eig_vals[eig_vals_id[i]])/total for i in range(0,len(eig_vals_id))]
-cum_var_exp = np.cumsum(var_exp)
+    # for i in range(0, len(eig_vals_id)):
+    #     print('主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (
+    #     format(i + 1, '2.0f'), format(var_exp[i] * 100, '4.2f'),
+    #     format(cum_var_exp[i] * 100, '4.1f')))
 
-# for i in range(0, len(eig_vals_id)):
-#     print('主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (
-#     format(i + 1, '2.0f'), format(var_exp[i] * 100, '4.2f'),
-#     format(cum_var_exp[i] * 100, '4.1f')))
-
-plt.plot([i for i in range(train_data.shape[1]-684)],cum_var_exp[0:100])
-plt.xticks(np.arange(train_data.shape[1]-684,step=10))
-plt.yticks(np.arange(0,1.01,0.05))
-plt.title(u"PCA维数分析")
-plt.xlabel(u"维数")
-plt.ylabel(u"方差")
-plt.grid()
-plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    plt.plot([i for i in range(train_data.shape[1]-684)],cum_var_exp[0:100])
+    plt.xticks(np.arange(train_data.shape[1]-684,step=10))
+    plt.yticks(np.arange(0,1.01,0.05))
+    plt.title(u"PCA维数分析")
+    plt.xlabel(u"维数")
+    plt.ylabel(u"方差")
+    plt.grid()
+    plt.show()
 
 #pca处理
 def DATA_PCA(train_data,test_data,component_num):
