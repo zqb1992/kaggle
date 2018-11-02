@@ -16,7 +16,6 @@ from sklearn.model_selection import GridSearchCV
 
 startTime = time.time()
 
-
 #load train data
 print('Read training data...')
 with open('../data/train.csv', 'r') as reader:
@@ -81,7 +80,7 @@ print(dev_data.shape)
 print('Train SVM...')
 
 #C较大，gamma较大时，会有更多的支持向量，模型会比较复杂，容易过拟合
-svc = SVC(C=10, kernel='rbf',gamma=0.01)
+svc = SVC(C=6, kernel='rbf')
 svc.fit(train_data, train_label)
 
 #交叉验证
@@ -111,7 +110,7 @@ predict = svc.predict(test_data)
 
 #保存测试结果
 print('Saving...')
-with open('../out/predict.csv', 'w') as writer:
+with open('../out/predict_svm.csv', 'w') as writer:
     writer.write('"ImageId","Label"\n')
     count = 0
     for p in predict:

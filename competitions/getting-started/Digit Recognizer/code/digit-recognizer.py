@@ -72,6 +72,7 @@ def pca_data_analyse(train_data):
     plt.show()
 
 #pca处理
+#component_num为保留的特征数
 def DATA_PCA(train_data,test_data,component_num):
     trainData = np.array(train_data)
     testData = np.array(test_data)
@@ -87,7 +88,7 @@ def DATA_PCA(train_data,test_data,component_num):
 #模型训练
 def svm_model(train_data,train_label):
     print('Train SVM...')
-    svc = SVC(C=4, kernel='rbf')
+    svc = SVC(C=6, kernel='rbf')
     svc.fit(train_data, train_label)
     return svc
 
