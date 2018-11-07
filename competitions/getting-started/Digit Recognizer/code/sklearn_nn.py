@@ -5,13 +5,7 @@
 @file:sklearn_nn.py
 @time:2018/11/07
 """
-#!/usr/bin/python
-#-*- coding:utf-8 -*-
-"""
-@authon:
-@file:sklearn_knn.py
-@time:2018/11/06
-"""
+print(__doc__)
 
 import time
 from sklearn.decomposition import PCA
@@ -44,7 +38,7 @@ print('PCA...')
 train_label = np.array(train_label)
 train_data = np.array(train_data)
 
-COMPONENT_NUM = 45
+COMPONENT_NUM = 30
 pca = PCA(n_components=COMPONENT_NUM, whiten=True)
 pca.fit(train_data)
 
@@ -73,8 +67,11 @@ train_data,dev_data,train_label,dev_label = train_test_split(train_data,train_la
 
 #nn
 print('Train NN...')
-nn = MLPClassifier(hidden_layer_sizes=(100, ), activation='relu', alpha=0.0001,learning_rate='constant',
-                   learning_rate_init=0.001,max_iter=200, shuffle=True, random_state=34)
+# nn = MLPClassifier(hidden_layer_sizes=(100,20), activation='relu', alpha=0.0001,learning_rate='constant',
+#                    learning_rate_init=0.001,max_iter=200, shuffle=True, random_state=1)
+nn = MLPClassifier(hidden_layer_sizes=(100,), max_iter=200, alpha=1e-1,
+                    solver='adam', verbose=10, tol=1e-4, random_state=1,
+                    learning_rate_init=0.001)
 nn.fit(train_data,train_label)
 
 
@@ -106,7 +103,7 @@ predict = nn.predict(test_data)
 
 #保存测试结果
 print('Saving...')
-with open('../out/predict_knn.csv', 'w') as writer:
+with open('../out/predict_nn.csv', 'w') as writer:
     writer.write('"ImageId","Label"\n')
     count = 0
     for p in predict:
