@@ -31,14 +31,19 @@ data.drop(['label'],axis=1,inplace=True)
 label=train_data.label
 
 #PCA处理
-pca=PCA(n_components=35, random_state=1)
-data_pca=pca.fit_transform(data)
+COMPONENT_NUM = 35
+pca = PCA(n_components=COMPONENT_NUM, whiten=True)
+
+data_pca=pca.fit_transform(data[0:len(train_data)])
 #定义交叉验证
 Xtrain,Ytrain,xlabel,ylabel=train_test_split(data_pca[0:len(train_data)],label,test_size=0.1, random_state=1)
 
 svc = SVC(C=6, kernel='rbf')
 svc.fit(Xtrain,xlabel)
+endtime=datetime.datetime.now()
+print("耗时%f:"%(endtime-starttime).seconds)
 print("the SVM's right rate is:",svc.score(Ytrain,ylabel))
+print(sum(pca.explained_variance_ratio_))
 
 dt = DecisionTreeClassifier(random_state=0)
 dt.fit(Xtrain,xlabel)
