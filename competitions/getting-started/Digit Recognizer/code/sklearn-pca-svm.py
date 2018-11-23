@@ -52,7 +52,7 @@ train_data = np.array(train_data)
 # plt.savefig("../image/pca_analyse.png")
 # plt.show()
 
-COMPONENT_NUM = 80
+COMPONENT_NUM = 35
 pca = PCA(n_components=COMPONENT_NUM, whiten=True)
 pca.fit(train_data)
 
@@ -60,12 +60,10 @@ print(sum(pca.explained_variance_ratio_))
 train_data = pca.transform(train_data)
 
 #将降维后的训练集分为训练集和验证集两部分
-train_data,dev_data,train_label,dev_label = train_test_split(train_data,train_label,test_size=0.1,random_state=1)
+train_data,dev_data,train_label,dev_label = train_test_split(train_data,train_label,test_size=0.1,random_state=34)
 
 print(train_data.shape)
 print(dev_data.shape)
-
-
 
 # print('SVM Params...')
 # #参数调优
