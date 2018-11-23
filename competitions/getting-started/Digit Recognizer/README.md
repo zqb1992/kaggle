@@ -1,6 +1,5 @@
 # 手写数字识别
 ![image](./image/DR.png)<br>
-
 ## 比赛说明
 - 手写数字识别是机器学习领域的Hello World
 - 手写数字识别也是Kaggle入门级比赛
