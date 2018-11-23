@@ -2,19 +2,21 @@
 """
 Created on Thu Jan 18 09:36:24 2018
 主要用来分析数据与结果之间的关系
-@author: LYQ
+@author: ZQB
 """
 
 import pandas as pd    #数据分析
 import numpy as np     #科学计算
 from pandas import Series,DataFrame
+import matplotlib.pyplot as plt
 
-data_train = pd.read_csv("train.csv")
+plt.rcParams['font.sans-serif']=['SimHei'] #用来正常显示中文标签
+plt.rcParams['axes.unicode_minus']=False #用来正常显示负号
+
+data_train = pd.read_csv("../data/train.csv")
 data_train.info()    #显示数据信息
 
-
 #可视化分析数据
-import matplotlib.pyplot as plt
 fig = plt.figure()
 fig.set(alpha=0.2)  # 设定图表颜色alpha参数
 
@@ -119,11 +121,11 @@ plt.show()
 
 g = data_train.groupby(['SibSp','Survived'])
 df = pd.DataFrame(g.count()['PassengerId'])
-print df
+print(df)
 
 g = data_train.groupby(['SibSp','Survived'])
 df = pd.DataFrame(g.count()['PassengerId'])
-print df
+print(df)
 
 #ticket是船票编号，应该是unique的，和最后的结果没有太大的关系，先不纳入考虑的特征范畴把
 #cabin只有204个乘客有值，我们先看看它的一个分布

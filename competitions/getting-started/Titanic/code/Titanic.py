@@ -8,10 +8,11 @@
 import pandas as pd    #数据分析
 import numpy as np     #科学计算
 from pandas import Series,DataFrame
-
-data_train = pd.read_csv("train.csv")
-
 from sklearn.ensemble import RandomForestRegressor
+
+data_train = pd.read_csv("../data/train.csv")
+
+
 
 ### 使用 RandomForestClassifier 填补缺失的年龄属性
 def set_missing_ages(df):
@@ -83,7 +84,7 @@ X = train_np[:, 1:]
 clf = linear_model.LogisticRegression(C=1.0, penalty='l1', tol=1e-6)
 clf.fit(X, y)
 
-print clf
+print(clf)
 pd.DataFrame({"columns":list(train_df.columns)[1:], "coef":list(clf.coef_.T)})
 
 
